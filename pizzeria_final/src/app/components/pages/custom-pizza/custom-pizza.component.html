@@ -1,0 +1,61 @@
+<app-title title="Custom Pizza" margin="1.5rem 0 0 2.5rem"></app-title>
+<app-not-found [visible]="!customPizza" notFoundMessage="Not selected Any!"
+  resetLinkText="Go To Homepage"></app-not-found>
+<div *ngIf="customPizza" class="container">
+  <ul>
+    <li>
+      <div>
+        <img [src]="customPizza.imageUrl" [alt]="customPizza.name">
+      </div>
+      <div>
+        <a routerLink="/food-details/{{customPizza.id}}">
+          {{customPizza.name}}
+        </a>
+      </div>
+
+      <div>
+        <select #pizzaBaseSelect [value]="customPizza.pizzaBase.id"
+          (change)="changePizzaBase(pizzaBaseSelect.value)">
+          <option *ngFor="let item of pizzaBaseOptions" [value]="item.id">{{item.name}}</option>
+        </select>
+      </div>
+      
+      <div class="base-price">
+        {{customPizza.price | currency:"INR":"symbol"}}
+      </div>
+      <div>
+        <button class="remove-button" (click)="cancel()">
+          cancel
+        </button>
+      </div> 
+      </li>
+      <li *ngFor="let topping of pizzaToppings">
+        <div>
+          <span>{{topping.name}}</span>
+        </div>
+        <div>
+          <span>{{topping.icon}}</span>
+        </div>
+        <div>
+          <select #toppingQuantitySelect [value]="topping.count"
+            (change)="changeToppingQuantity(topping, toppingQuantitySelect.value)">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+          </select>
+        </div>
+        <div>
+          {{topping.price | currency:"INR":"symbol"}}
+        </div>
+        
+      </li>       
+  </ul>
+  <div class="checkout">
+    <div>
+      <div class="total-price">{{totalCost|currency:"INR":"symbol"}}</div>
+    </div>
+    <button class="add-to-cart-button" (click)="addPizzaToCart()">
+        Add to Cart
+      </button>
+  </div>
+</div>

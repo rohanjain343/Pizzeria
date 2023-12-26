@@ -1,0 +1,22 @@
+<app-not-found
+  [visible]="!food.id"
+  notFoundMessage="Food Not Found"
+  resetLinkText="Back To Homepage">
+</app-not-found>
+<div *ngIf="food.id" class="container">
+  <img [src]="food.imageUrl" [alt]="food.name"/>
+
+  <div class="details">
+    <div class="header">
+      <span class="name">
+        {{food.name}}
+      </span>
+      <span class="favorite">
+        {{totalCost | currency:"INR":"symbol"}}
+      </span>
+    </div>
+
+    <button (click)="addToCart()">Add To Cart</button>
+
+  </div>
+</div>
